@@ -44,7 +44,7 @@ export default function Navbar() {
               onClick={() => router.push('/dashboard')}
               className="text-xl font-bold text-blue-600 hover:text-blue-700"
             >
-              RSI E-Learning
+              Edutopia
             </button>
             <div className="hidden md:ml-6 md:flex md:space-x-8">
               <a

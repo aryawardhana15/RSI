@@ -7,7 +7,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'RSI E-Learning Platform',
+  title: 'Edutopia',
   description: 'Platform pembelajaran online dengan gamification',
 };
 

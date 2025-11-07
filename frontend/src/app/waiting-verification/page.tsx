@@ -67,7 +67,7 @@ export default function WaitingVerificationPage() {
             Logout
           </button>
           <p className="text-xs text-gray-500">
-            Jika Anda memiliki pertanyaan, silakan hubungi admin@rsi.com
+            Jika Anda memiliki pertanyaan, silakan hubungi admin@edutopia.com
           </p>
         </div>
       </div>
