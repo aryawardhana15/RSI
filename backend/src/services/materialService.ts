@@ -2,6 +2,7 @@ import Material from '../models/Material';
 import MaterialProgress from '../models/MaterialProgress';
 import Course from '../models/Course';
 import sequelize from '../config/database';
+import { addXP, updateMissionProgress } from './gamificationService';
 
 interface CreateMaterialInput {
   course_id: number;
@@ -180,6 +181,13 @@ export const markMaterialComplete = async (materialId: number, userId: number) =
   // Give XP reward (10 XP for completing material)
   await addXP(userId, 10, 'complete_material');
 
+  // Update mission progress
+  await updateMissionProgress(userId, 'complete_material', 1);
+
+  // Check badges
+  const { checkAndAwardBadges } = await import('./gamificationService');
+  await checkAndAwardBadges(userId);
+
   return progress;
 };
 
@@ -210,67 +218,25 @@ const updateEnrollmentProgress = async (userId: number, courseId: number) => {
     { replacements: [progress, userId, courseId] }
   );
 
-  // If all materials completed, mark course as completed
-  if (progress === 100) {
-    await sequelize.query(
-      'UPDATE enrollments SET completed_at = NOW() WHERE user_id = ? AND course_id = ? AND completed_at IS NULL',
-      { replacements: [userId, courseId] }
-    );
-
-    // Give bonus XP for completing course (50 XP)
-    await addXP(userId, 50, 'complete_course');
-  }
-};
-
-// Helper function to add XP (will be moved to gamification service later)
-const addXP = async (userId: number, xpAmount: number, reason: string) => {
-  try {
-    // Insert XP history
-    await sequelize.query(
-      'INSERT INTO xp_history (user_id, xp_amount, reason) VALUES (?, ?, ?)',
-      { replacements: [userId, xpAmount, reason] }
-    );
-
-    // Update total XP in user_gamification
-    const [gamificationResult] = await sequelize.query(
-      'SELECT * FROM user_gamification WHERE user_id = ?',
-      { replacements: [userId] }
-    );
-
-    if (gamificationResult && (gamificationResult as any[]).length > 0) {
-      const newTotalXP = (gamificationResult as any)[0].total_xp + xpAmount;
-      
+    // If all materials completed, mark course as completed
+    if (progress === 100) {
       await sequelize.query(
-        'UPDATE user_gamification SET total_xp = ? WHERE user_id = ?',
-        { replacements: [newTotalXP, userId] }
+        'UPDATE enrollments SET completed_at = NOW() WHERE user_id = ? AND course_id = ? AND completed_at IS NULL',
+        { replacements: [userId, courseId] }
       );
 
-      // Check for level up (simple logic, will be improved in gamification phase)
-      const [levelResult] = await sequelize.query(
-        'SELECT level_number FROM levels WHERE xp_required <= ? ORDER BY xp_required DESC LIMIT 1',
-        { replacements: [newTotalXP] }
-      );
+      // Give bonus XP for completing course (50 XP)
+      await addXP(userId, 50, 'complete_course');
 
-      if (levelResult && (levelResult as any[]).length > 0) {
-        const newLevel = (levelResult as any)[0].level_number;
-        
-        await sequelize.query(
-          'UPDATE user_gamification SET current_level = ? WHERE user_id = ?',
-          { replacements: [newLevel, userId] }
-        );
-      }
-    } else {
-      // Create gamification record if not exists
-      await sequelize.query(
-        'INSERT INTO user_gamification (user_id, total_xp, current_level) VALUES (?, ?, 1)',
-        { replacements: [userId, xpAmount] }
-      );
+      // Update mission progress for course completion
+      await updateMissionProgress(userId, 'complete_course', 1);
+
+      // Check badges
+      const { checkAndAwardBadges } = await import('./gamificationService');
+      await checkAndAwardBadges(userId);
     }
-  } catch (error) {
-    console.error('Error adding XP:', error);
-    // Don't throw error, just log it
-  }
 };
+
 
 export const reorderMaterials = async (
   courseId: number,

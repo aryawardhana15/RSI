@@ -6,7 +6,10 @@ import api from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import StatCard from '@/components/StatCard';
+import XPBar from '@/components/XPBar';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import { UserStats } from '@/types/gamification';
+import Link from 'next/link';
 
 interface PelajarStats {
   totalEnrolled: number;
@@ -21,6 +24,7 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState<PelajarStats | null>(null);
+  const [gamificationStats, setGamificationStats] = useState<UserStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -35,12 +39,19 @@ export default function DashboardPage() {
       }
     }
 
-    // Fetch pelajar stats
+    // Fetch pelajar stats and gamification stats
     const fetchStats = async () => {
       try {
-        const response = await api.get('/dashboard/pelajar');
-        if (response.data.success) {
-          setStats(response.data.data);
+        const [dashboardResponse, gamificationResponse] = await Promise.all([
+          api.get('/dashboard/pelajar'),
+          api.get('/gamification/stats').catch(() => ({ data: { success: false } })) // Don't fail if gamification not available
+        ]);
+
+        if (dashboardResponse.data.success) {
+          setStats(dashboardResponse.data.data);
+        }
+        if (gamificationResponse.data.success) {
+          setGamificationStats(gamificationResponse.data.data);
         }
       } catch (error) {
         console.error('Failed to fetch stats:', error);
@@ -77,6 +88,48 @@ export default function DashboardPage() {
               Berikut adalah ringkasan progress belajar Anda
             </p>
           </div>
+
+          {/* Gamification Stats Card */}
+          {gamificationStats && (
+            <div className="px-4 sm:px-0 mb-6">
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-6 border border-blue-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900">Gamifikasi</h2>
+                    <p className="text-sm text-gray-600">Progress level dan XP Anda</p>
+                  </div>
+                  <Link
+                    href="/gamification/stats"
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Lihat Detail →
+                  </Link>
+                </div>
+                <XPBar
+                  currentXP={gamificationStats.total_xp}
+                  currentLevel={gamificationStats.current_level}
+                  levelName={gamificationStats.level_name}
+                  levelProgress={gamificationStats.level_progress}
+                  nextLevelXP={gamificationStats.next_level_xp}
+                  size="lg"
+                />
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-blue-600">{gamificationStats.total_badges}</p>
+                    <p className="text-xs text-gray-600 mt-1">Badges</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-purple-600">{gamificationStats.completed_missions}</p>
+                    <p className="text-xs text-gray-600 mt-1">Misi Selesai</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-yellow-600">#{gamificationStats.rank || '-'}</p>
+                    <p className="text-xs text-gray-600 mt-1">Peringkat</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Stats Grid */}
           <div className="px-4 sm:px-0">
@@ -176,11 +229,19 @@ export default function DashboardPage() {
               </button>
 
               <button
-                onClick={() => router.push('/leaderboard')}
+                onClick={() => router.push('/gamification/leaderboard')}
                 className="relative block p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
               >
                 <h3 className="text-lg font-medium text-gray-900">Leaderboard</h3>
                 <p className="mt-2 text-sm text-gray-600">Lihat ranking</p>
+              </button>
+
+              <button
+                onClick={() => router.push('/gamification/stats')}
+                className="relative block p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+              >
+                <h3 className="text-lg font-medium text-gray-900">Gamifikasi</h3>
+                <p className="mt-2 text-sm text-gray-600">Lihat XP, badges & missions</p>
               </button>
 
               <button

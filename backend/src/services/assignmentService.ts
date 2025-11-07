@@ -4,6 +4,7 @@ import Submission from '../models/Submission';
 import QuizAnswer from '../models/QuizAnswer';
 import Course from '../models/Course';
 import sequelize from '../config/database';
+import { addXP, updateMissionProgress } from './gamificationService';
 
 interface CreateAssignmentInput {
   course_id: number;
@@ -278,6 +279,9 @@ export const submitAssignment = async (
   // Give XP for submission
   await addXP(userId, 20, 'submit_assignment');
 
+  // Update mission progress
+  await updateMissionProgress(userId, 'submit_assignment', 1);
+
   return submission;
 };
 
@@ -356,6 +360,14 @@ export const submitQuiz = async (
   const xpReward = score === assignment.max_score ? 50 : 20; // Bonus for perfect score
   await addXP(userId, xpReward, score === assignment.max_score ? 'perfect_quiz' : 'submit_assignment');
 
+  // Update mission progress
+  await updateMissionProgress(userId, 'submit_assignment', 1);
+
+  // If perfect score, update perfect_quiz mission
+  if (score === assignment.max_score) {
+    await updateMissionProgress(userId, 'perfect_quiz', 1);
+  }
+
   return {
     ...submission.toJSON(),
     correctCount,
@@ -428,54 +440,14 @@ export const gradeSubmission = async (
   if (assignment.type === 'tugas') {
     const xpReward = score === assignment.max_score ? 50 : 20;
     await addXP(submission.user_id, xpReward, score === assignment.max_score ? 'perfect_score' : 'graded_assignment');
+    
+    // Update mission progress (tugas submission is already tracked in submitAssignment)
+    if (score === assignment.max_score) {
+      await updateMissionProgress(submission.user_id, 'perfect_quiz', 1);
+    }
   }
 
   return submission;
 };
 
-// Helper function to add XP
-const addXP = async (userId: number, xpAmount: number, reason: string) => {
-  try {
-    await sequelize.query(
-      'INSERT INTO xp_history (user_id, xp_amount, reason) VALUES (?, ?, ?)',
-      { replacements: [userId, xpAmount, reason] }
-    );
-
-    const [gamificationResult] = await sequelize.query(
-      'SELECT * FROM user_gamification WHERE user_id = ?',
-      { replacements: [userId] }
-    );
-
-    if (gamificationResult && (gamificationResult as any[]).length > 0) {
-      const newTotalXP = (gamificationResult as any)[0].total_xp + xpAmount;
-      
-      await sequelize.query(
-        'UPDATE user_gamification SET total_xp = ? WHERE user_id = ?',
-        { replacements: [newTotalXP, userId] }
-      );
-
-      const [levelResult] = await sequelize.query(
-        'SELECT level_number FROM levels WHERE xp_required <= ? ORDER BY xp_required DESC LIMIT 1',
-        { replacements: [newTotalXP] }
-      );
-
-      if (levelResult && (levelResult as any[]).length > 0) {
-        const newLevel = (levelResult as any)[0].level_number;
-        
-        await sequelize.query(
-          'UPDATE user_gamification SET current_level = ? WHERE user_id = ?',
-          { replacements: [newLevel, userId] }
-        );
-      }
-    } else {
-      // Create gamification record if not exists
-      await sequelize.query(
-        'INSERT INTO user_gamification (user_id, total_xp, current_level) VALUES (?, ?, 1)',
-        { replacements: [userId, xpAmount] }
-      );
-    }
-  } catch (error) {
-    console.error('Error adding XP:', error);
-  }
-};
 

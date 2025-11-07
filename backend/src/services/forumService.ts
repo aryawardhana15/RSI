@@ -4,6 +4,7 @@ import ForumLike from '../models/ForumLike';
 import ForumReport from '../models/ForumReport';
 import Course from '../models/Course';
 import sequelize from '../config/database';
+import { addXP, updateMissionProgress } from './gamificationService';
 
 interface CreateForumInput {
   course_id: number;
@@ -66,6 +67,9 @@ export const createForumThread = async (input: CreateForumInput, userId: number)
 
   // Give XP for posting
   await addXP(userId, 5, 'forum_post');
+
+  // Update mission progress
+  await updateMissionProgress(userId, 'forum_post', 1);
 
   return forum;
 };
@@ -213,6 +217,9 @@ export const createReply = async (forumId: number, userId: number, input: Create
 
   // Give XP for replying
   await addXP(userId, 3, 'forum_reply');
+
+  // Update mission progress
+  await updateMissionProgress(userId, 'forum_reply', 1);
 
   return reply;
 };
@@ -410,51 +417,6 @@ export const deleteReply = async (replyId: number, userId: number, isAdmin: bool
   return { message: 'Reply berhasil dihapus' };
 };
 
-// Helper function to add XP
-const addXP = async (userId: number, xpAmount: number, reason: string) => {
-  try {
-    await sequelize.query(
-      'INSERT INTO xp_history (user_id, xp_amount, reason) VALUES (?, ?, ?)',
-      { replacements: [userId, xpAmount, reason] }
-    );
-
-    const [gamificationResult] = await sequelize.query(
-      'SELECT * FROM user_gamification WHERE user_id = ?',
-      { replacements: [userId] }
-    );
-
-    if (gamificationResult && (gamificationResult as any[]).length > 0) {
-      const newTotalXP = (gamificationResult as any)[0].total_xp + xpAmount;
-      
-      await sequelize.query(
-        'UPDATE user_gamification SET total_xp = ? WHERE user_id = ?',
-        { replacements: [newTotalXP, userId] }
-      );
-
-      const [levelResult] = await sequelize.query(
-        'SELECT level_number FROM levels WHERE xp_required <= ? ORDER BY xp_required DESC LIMIT 1',
-        { replacements: [newTotalXP] }
-      );
-
-      if (levelResult && (levelResult as any[]).length > 0) {
-        const newLevel = (levelResult as any)[0].level_number;
-        
-        await sequelize.query(
-          'UPDATE user_gamification SET current_level = ? WHERE user_id = ?',
-          { replacements: [newLevel, userId] }
-        );
-      }
-    } else {
-      // Create gamification record if not exists
-      await sequelize.query(
-        'INSERT INTO user_gamification (user_id, total_xp, current_level) VALUES (?, ?, 1)',
-        { replacements: [userId, xpAmount] }
-      );
-    }
-  } catch (error) {
-    console.error('Error adding XP:', error);
-  }
-};
 
 export const searchForums = async (
   userId: number,

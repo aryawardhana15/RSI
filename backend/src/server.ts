@@ -10,6 +10,8 @@ import assignmentRoutes from './routes/assignmentRoutes';
 import forumRoutes from './routes/forumRoutes';
 import chatRoutes from './routes/chatRoutes';
 import userRoutes from './routes/userRoutes';
+import gamificationRoutes from './routes/gamificationRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 dotenv.config();
 
@@ -30,6 +32,8 @@ app.use('/api/assignments', assignmentRoutes);
 app.use('/api/forums', forumRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/gamification', gamificationRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
