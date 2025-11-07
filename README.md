@@ -47,7 +47,7 @@ File `.env` sudah dibuat dengan konfigurasi database Anda:
 PORT=5000
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=hafiz1180
+DB_PASSWORD=
 DB_NAME=rsi_elearning_db
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 JWT_EXPIRES_IN=7d
