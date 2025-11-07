@@ -5,6 +5,11 @@ import sequelize from './config/database';
 import authRoutes from './routes/authRoutes';
 import dashboardRoutes from './routes/dashboardRoutes';
 import courseRoutes from './routes/courseRoutes';
+import materialRoutes from './routes/materialRoutes';
+import assignmentRoutes from './routes/assignmentRoutes';
+import forumRoutes from './routes/forumRoutes';
+import chatRoutes from './routes/chatRoutes';
+import userRoutes from './routes/userRoutes';
 
 dotenv.config();
 
@@ -20,6 +25,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/materials', materialRoutes);
+app.use('/api/assignments', assignmentRoutes);
+app.use('/api/forums', forumRoutes);
+app.use('/api/chats', chatRoutes);
+app.use('/api/users', userRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -83,6 +83,85 @@ export const getMentorStats = async (userId: number) => {
   };
 };
 
+export const getMentorStudentChartData = async (userId: number) => {
+  // Get enrollment data per month for last 6 months
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+  const [monthlyEnrollments] = await sequelize.query(
+    `SELECT 
+      DATE_FORMAT(e.enrolled_at, '%Y-%m') as month,
+      COUNT(*) as count
+    FROM enrollments e
+    JOIN courses c ON e.course_id = c.id
+    WHERE c.mentor_id = ? 
+      AND e.enrolled_at >= ?
+    GROUP BY DATE_FORMAT(e.enrolled_at, '%Y-%m')
+    ORDER BY month ASC`,
+    { replacements: [userId, sixMonthsAgo] }
+  );
+
+  // Get students per course
+  const [studentsPerCourse] = await sequelize.query(
+    `SELECT 
+      c.id,
+      c.title,
+      COUNT(DISTINCT e.user_id) as student_count
+    FROM courses c
+    LEFT JOIN enrollments e ON c.id = e.course_id
+    WHERE c.mentor_id = ?
+    GROUP BY c.id, c.title
+    ORDER BY student_count DESC
+    LIMIT 10`,
+    { replacements: [userId] }
+  );
+
+  // Get active vs total students (active = enrolled in last 30 days)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const [activeStudentsResult] = await sequelize.query(
+    `SELECT COUNT(DISTINCT e.user_id) as total
+     FROM enrollments e
+     JOIN courses c ON e.course_id = c.id
+     WHERE c.mentor_id = ?
+       AND e.enrolled_at >= ?`,
+    { replacements: [userId, thirtyDaysAgo] }
+  );
+  const activeStudents = (activeStudentsResult as any)[0].total;
+
+  const [totalStudentsResult] = await sequelize.query(
+    `SELECT COUNT(DISTINCT e.user_id) as total
+     FROM enrollments e
+     JOIN courses c ON e.course_id = c.id
+     WHERE c.mentor_id = ?`,
+    { replacements: [userId] }
+  );
+  const totalStudents = (totalStudentsResult as any)[0].total;
+
+  // Format monthly data - ensure all 6 months are represented
+  const months = [];
+  const currentDate = new Date();
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    const monthData = (monthlyEnrollments as any[]).find((m: any) => m.month === monthKey);
+    months.push({
+      month: `${monthNames[date.getMonth()]} ${date.getFullYear()}`,
+      count: monthData ? parseInt(monthData.count) : 0
+    });
+  }
+
+  return {
+    monthlyEnrollments: months,
+    studentsPerCourse: studentsPerCourse,
+    activeStudents,
+    totalStudents
+  };
+};
+
 export const getAdminStats = async () => {
   // Get total users by role
   const [usersResult] = await sequelize.query(

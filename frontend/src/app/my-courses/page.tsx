@@ -7,6 +7,7 @@ import api from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import ChatButton from '@/components/ChatButton';
 import { Course } from '@/types/course';
 
 export default function MyCoursesPage() {
@@ -126,13 +127,32 @@ export default function MyCoursesPage() {
                                 </p>
                               </div>
                             </div>
-                            <div className="ml-4 flex-shrink-0">
+                            <div className="ml-4 flex-shrink-0 flex items-center space-x-2">
                               <button
-                                onClick={() => router.push(`/courses/${course.id}/learn`)}
-                                className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  console.log('Button clicked, course:', course);
+                                  if (!course.id) {
+                                    console.error('Course ID is missing:', course);
+                                    toast.error('Course ID tidak valid');
+                                    return;
+                                  }
+                                  const learnUrl = `/courses/${course.id}/learn`;
+                                  console.log('Navigating to:', learnUrl);
+                                  router.push(learnUrl);
+                                }}
+                                className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer active:bg-blue-800"
+                                type="button"
+                                disabled={!course.id}
                               >
                                 {progress > 0 ? 'Lanjutkan' : 'Mulai'}
                               </button>
+                              <ChatButton 
+                                courseId={course.id} 
+                                courseName={course.title}
+                                size="md"
+                              />
                             </div>
                           </div>
                         </div>
