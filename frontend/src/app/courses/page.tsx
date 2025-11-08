@@ -92,18 +92,30 @@ export default function CoursesPage() {
 
   return (
     <ProtectedRoute allowedRoles={['pelajar']}>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
         <Navbar />
 
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="px-4 py-6 sm:px-0">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Jelajahi Kursus
-            </h1>
-            <p className="mt-2 text-sm text-gray-600">
-              Temukan kursus yang sesuai dengan minat dan tujuan belajar Anda
-            </p>
+          {/* Header - Fun Design */}
+          <div className="px-4 py-6 sm:px-0 mb-6">
+            <div className="relative overflow-hidden bg-gradient-to-r from-indigo-500 via-blue-500 to-purple-500 rounded-3xl p-8 shadow-2xl">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3">
+                  <div className="text-5xl animate-bounce">🔍</div>
+                  <div>
+                    <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">
+                      Jelajahi Kursus
+                    </h1>
+                    <p className="text-xl text-white/90 font-medium">
+                      Temukan kursus yang sesuai dengan minat dan tujuan belajarmu! 🎯
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Filters */}
@@ -118,14 +130,15 @@ export default function CoursesPage() {
             </div>
           )}
 
-          {/* Empty State */}
+          {/* Empty State - Fun Design */}
           {!isLoading && courses.length === 0 && (
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">Tidak ada kursus</h3>
-              <p className="mt-1 text-sm text-gray-500">Coba ubah filter pencarian Anda</p>
+            <div className="text-center py-16">
+              <div className="relative inline-block mb-6">
+                <div className="text-8xl animate-bounce">🔍</div>
+                <div className="absolute -top-2 -right-2 text-4xl animate-pulse">✨</div>
+              </div>
+              <h3 className="text-2xl font-black text-gray-800 mb-2">Tidak ada kursus ditemukan 😊</h3>
+              <p className="text-lg text-gray-600 mb-8">Coba ubah filter pencarianmu atau cek lagi nanti!</p>
             </div>
           )}
 

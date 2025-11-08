@@ -48,54 +48,66 @@ export default function BadgesPage() {
 
   return (
     <ProtectedRoute allowedRoles={['pelajar']}>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50">
         <Navbar />
 
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="px-4 py-6 sm:px-0">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Badges</h1>
-                <p className="mt-2 text-sm text-gray-600">
-                  Koleksi semua badge dan buktikan pencapaian Anda
-                </p>
-              </div>
-              <div className="flex space-x-3">
-                <Link
-                  href="/gamification/stats"
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
-                >
-                  Stats
-                </Link>
-                <Link
-                  href="/gamification/missions"
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
-                >
-                  Missions
-                </Link>
-                <Link
-                  href="/gamification/leaderboard"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
-                >
-                  Leaderboard
-                </Link>
-              </div>
-            </div>
+          {/* Header - Fun Design */}
+          <div className="px-4 py-6 sm:px-0 mb-6">
+            <div className="relative overflow-hidden bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 rounded-3xl p-8 shadow-2xl">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+              
+              <div className="relative z-10">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                  <div>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-5xl animate-bounce">🏆</span>
+                      <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                        Badges
+                      </h1>
+                    </div>
+                    <p className="text-xl text-white/90 font-medium">
+                      Koleksi semua badge dan buktikan pencapaianmu! 🎯
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href="/gamification/stats"
+                      className="px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-black rounded-xl hover:bg-white/30 transition-all transform hover:scale-105 border-2 border-white/30"
+                    >
+                      📊 Stats
+                    </Link>
+                    <Link
+                      href="/gamification/missions"
+                      className="px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-black rounded-xl hover:bg-white/30 transition-all transform hover:scale-105 border-2 border-white/30"
+                    >
+                      ✅ Missions
+                    </Link>
+                    <Link
+                      href="/gamification/leaderboard"
+                      className="px-5 py-2.5 bg-white text-orange-600 font-black rounded-xl hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg"
+                    >
+                      🥇 Leaderboard
+                    </Link>
+                  </div>
+                </div>
 
-            {/* Stats */}
-            <div className="mt-4 flex items-center space-x-4">
-              <div className="bg-white rounded-lg px-4 py-2 shadow">
-                <span className="text-sm text-gray-600">Total Badges: </span>
-                <span className="font-bold text-gray-900">{badges.length}</span>
-              </div>
-              <div className="bg-green-50 rounded-lg px-4 py-2 shadow">
-                <span className="text-sm text-green-600">Earned: </span>
-                <span className="font-bold text-green-700">{earnedBadges.length}</span>
-              </div>
-              <div className="bg-gray-100 rounded-lg px-4 py-2 shadow">
-                <span className="text-sm text-gray-600">Locked: </span>
-                <span className="font-bold text-gray-700">{lockedBadges.length}</span>
+                {/* Stats - Fun Design */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 border-2 border-white/30">
+                    <span className="text-sm text-white/90 font-medium">Total: </span>
+                    <span className="text-2xl font-black text-white">{badges.length}</span>
+                  </div>
+                  <div className="bg-green-500/80 backdrop-blur-sm rounded-2xl px-6 py-3 border-2 border-white/30">
+                    <span className="text-sm text-white/90 font-medium">✅ Didapat: </span>
+                    <span className="text-2xl font-black text-white">{earnedBadges.length}</span>
+                  </div>
+                  <div className="bg-gray-500/80 backdrop-blur-sm rounded-2xl px-6 py-3 border-2 border-white/30">
+                    <span className="text-sm text-white/90 font-medium">🔒 Terkunci: </span>
+                    <span className="text-2xl font-black text-white">{lockedBadges.length}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -103,8 +115,11 @@ export default function BadgesPage() {
           {/* Earned Badges */}
           {earnedBadges.length > 0 && (
             <div className="px-4 sm:px-0 mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Badges yang Didapat</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-3xl">✨</span>
+                <h2 className="text-2xl font-black text-gray-900">Badges yang Didapat</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {earnedBadges.map((badge) => (
                   <BadgeCard key={badge.badge_id} badge={badge} />
                 ))}
@@ -115,8 +130,11 @@ export default function BadgesPage() {
           {/* Locked Badges */}
           {lockedBadges.length > 0 && (
             <div className="px-4 sm:px-0">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Badges Terkunci</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-3xl">🔒</span>
+                <h2 className="text-2xl font-black text-gray-900">Badges Terkunci</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {lockedBadges.map((badge) => (
                   <BadgeCard key={badge.badge_id} badge={badge} />
                 ))}
@@ -126,8 +144,10 @@ export default function BadgesPage() {
 
           {badges.length === 0 && (
             <div className="px-4 sm:px-0">
-              <div className="bg-white rounded-lg shadow p-12 text-center">
-                <p className="text-gray-500">Belum ada badges tersedia</p>
+              <div className="bg-white rounded-3xl shadow-2xl p-12 text-center border-4 border-white/50">
+                <div className="text-6xl mb-4">🏆</div>
+                <p className="text-xl text-gray-600 font-bold">Belum ada badges tersedia</p>
+                <p className="text-sm text-gray-500 mt-2">Mulai belajar untuk dapatkan badges!</p>
               </div>
             </div>
           )}

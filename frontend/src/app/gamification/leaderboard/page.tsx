@@ -168,6 +168,7 @@ export default function LeaderboardPage() {
                                 )}
                               </div>
                             </div>
+
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -254,4 +255,5 @@ export default function LeaderboardPage() {
     </ProtectedRoute>
   );
 }
+
 

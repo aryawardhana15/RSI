@@ -162,75 +162,88 @@ export default function LearnCoursePage() {
 
   return (
     <ProtectedRoute allowedRoles={['pelajar']}>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         <Navbar />
 
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 sm:px-0">
-            {/* Header */}
-            <div className="mb-6 flex items-center justify-between">
-              <button
-                onClick={() => router.push('/my-courses')}
-                className="text-gray-300 hover:text-white"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <div className="flex-1 ml-4">
-                <h1 className="text-xl font-bold text-white">{course?.title}</h1>
-                <div className="mt-2 flex items-center">
-                  <div className="flex-1 bg-gray-700 rounded-full h-2 mr-3">
-                    <div
-                      className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${progressPercentage}%` }}
-                    ></div>
+            {/* Header - Fun Design */}
+            <div className="mb-6 relative overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 shadow-2xl">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24"></div>
+              
+              <div className="relative z-10">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => router.push('/my-courses')}
+                      className="p-2 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all transform hover:scale-110"
+                    >
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <div>
+                      <h1 className="text-2xl md:text-3xl font-black text-white mb-2">{course?.title}</h1>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-full h-3 max-w-xs">
+                          <div
+                            className="bg-white h-3 rounded-full transition-all duration-500 relative overflow-hidden"
+                            style={{ width: `${progressPercentage}%` }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-400 animate-pulse"></div>
+                          </div>
+                        </div>
+                        <span className="text-sm font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                          {completedCount}/{materials.length} selesai ✨
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-sm text-gray-300">
-                    {completedCount}/{materials.length} selesai
-                  </span>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => router.push(`/courses/${courseId}/assignments`)}
+                      className="px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-black rounded-xl hover:bg-white/30 transition-all transform hover:scale-105 border-2 border-white/30"
+                    >
+                      📝 Tugas
+                    </button>
+                    <button
+                      onClick={() => router.push(`/courses/${courseId}/forum`)}
+                      className="px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-black rounded-xl hover:bg-white/30 transition-all transform hover:scale-105 border-2 border-white/30"
+                    >
+                      💬 Forum
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="ml-4 flex space-x-2">
-                <button
-                  onClick={() => router.push(`/courses/${courseId}/assignments`)}
-                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium"
-                >
-                  Assignments
-                </button>
-                <button
-                  onClick={() => router.push(`/courses/${courseId}/forum`)}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium"
-                >
-                  Forum
-                </button>
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
               {/* Sidebar - Material List */}
-              <div className="lg:col-span-1 bg-gray-800 rounded-lg p-4 max-h-screen overflow-y-auto">
-                <h2 className="text-lg font-semibold text-white mb-4">Daftar Materi</h2>
-                <div className="space-y-2">
+              <div className="lg:col-span-1 bg-white rounded-3xl shadow-2xl p-6 border-4 border-white/50 max-h-screen overflow-y-auto">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="text-3xl">📋</span>
+                  <h2 className="text-xl font-black text-gray-900">Daftar Materi</h2>
+                </div>
+                <div className="space-y-3">
                   {materials.map((material, index) => (
                     <button
                       key={material.id}
                       onClick={() => setCurrentMaterialIndex(index)}
-                      className={`w-full text-left p-3 rounded-lg transition-colors ${
+                      className={`w-full text-left p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                         index === currentMaterialIndex
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                          ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-xl'
+                          : 'bg-gradient-to-r from-gray-50 to-gray-100 text-gray-800 hover:from-gray-100 hover:to-gray-200 border-2 border-gray-200'
                       }`}
                     >
-                      <div className="flex items-center">
-                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center text-xs mr-2">
+                      <div className="flex items-center gap-3">
+                        <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black ${
+                          index === currentMaterialIndex ? 'bg-white/30 text-white' : 'bg-white text-gray-700 shadow-md'
+                        }`}>
                           {index + 1}
                         </span>
-                        <span className="flex-1 text-sm truncate">{material.title}</span>
+                        <span className="flex-1 text-sm font-bold truncate">{material.title}</span>
                         {!!material.is_completed && (
-                          <svg className="w-5 h-5 text-green-400 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
+                          <span className="text-xl">✅</span>
                         )}
                       </div>
                     </button>
@@ -240,13 +253,19 @@ export default function LearnCoursePage() {
 
               {/* Main Content */}
               <div className="lg:col-span-3">
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white/50">
                   {/* Material Header */}
-                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
-                    <h2 className="text-2xl font-bold text-white">{currentMaterial.title}</h2>
-                    {currentMaterial.description && (
-                      <p className="mt-2 text-blue-100">{currentMaterial.description}</p>
-                    )}
+                  <div className="relative overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 px-8 py-6">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="text-4xl">📖</span>
+                        <h2 className="text-3xl font-black text-white">{currentMaterial.title}</h2>
+                      </div>
+                      {currentMaterial.description && (
+                        <p className="text-white/90 font-medium text-lg">{currentMaterial.description}</p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Material Content */}
@@ -304,60 +323,72 @@ export default function LearnCoursePage() {
                         <button
                           onClick={handleMarkComplete}
                           disabled={isMarkingComplete}
-                          className="w-full px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center justify-center"
+                          className="group relative w-full px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-black text-lg rounded-2xl hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-hidden"
                         >
-                          {isMarkingComplete ? (
-                            <>
-                              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                          <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                          <span className="relative z-10 flex items-center justify-center gap-3">
+                            {isMarkingComplete ? (
+                              <>
+                                <svg className="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                               </svg>
-                              Memproses...
-                            </>
-                          ) : (
-                            <>
-                              <svg className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              Tandai Selesai
-                            </>
-                          )}
+                                Memproses...
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-2xl">✅</span>
+                                Tandai Selesai
+                              </>
+                            )}
+                          </span>
                         </button>
                       </div>
                     ) : null}
 
                     {!!currentMaterial.is_completed && (
-                      <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
-                        <div className="flex items-center">
-                          <svg className="h-5 w-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          <p className="text-sm font-medium text-green-800">
-                            Materi ini sudah selesai
-                          </p>
+                      <div className="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border-4 border-green-300 rounded-2xl p-6">
+                        <div className="flex items-center gap-3">
+                          <span className="text-4xl">🎉</span>
+                          <div>
+                            <p className="text-lg font-black text-green-800 mb-1">
+                              Materi ini sudah selesai!
+                            </p>
+                            <p className="text-sm text-green-700">
+                              Selamat! Kamu dapat XP untuk menyelesaikan materi ini ✨
+                            </p>
+                          </div>
                         </div>
                       </div>
                     )}
                   </div>
 
                   {/* Navigation */}
-                  <div className="bg-gray-50 px-6 py-4 flex justify-between items-center">
+                  <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-8 py-6 flex justify-between items-center border-t-4 border-gray-200">
                     <button
                       onClick={handlePrevious}
                       disabled={currentMaterialIndex === 0}
-                      className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="group px-6 py-3 text-sm font-black text-gray-700 bg-white border-2 border-gray-300 rounded-2xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      ← Materi Sebelumnya
+                      <span className="flex items-center gap-2">
+                        <span>⬅️</span>
+                        Sebelumnya
+                      </span>
                     </button>
-                    <span className="text-sm text-gray-600">
-                      {currentMaterialIndex + 1} / {materials.length}
-                    </span>
+                    <div className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl shadow-lg">
+                      <span className="text-lg font-black">
+                        {currentMaterialIndex + 1} / {materials.length}
+                      </span>
+                    </div>
                     <button
                       onClick={handleNext}
                       disabled={currentMaterialIndex === materials.length - 1}
-                      className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="group px-6 py-3 text-sm font-black text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                     >
-                      Materi Selanjutnya →
+                      <span className="flex items-center gap-2">
+                        Selanjutnya
+                        <span>➡️</span>
+                      </span>
                     </button>
                   </div>
                 </div>
