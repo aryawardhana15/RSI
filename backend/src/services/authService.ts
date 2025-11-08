@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
 import { generateToken } from '../utils/jwt';
+import sequelize from '../config/database';
 
 interface RegisterInput {
   name: string;
@@ -92,6 +93,30 @@ export const login = async (input: LoginInput): Promise<RegisterResponse> => {
   // Check if mentor is verified
   if (user.role === 'mentor' && !user.is_verified) {
     throw new Error('Akun Anda masih menunggu verifikasi admin');
+  }
+
+  // Track login mission for pelajar only (once per day)
+  if (user.role === 'pelajar') {
+    try {
+      const { updateMissionProgress } = await import('./gamificationService');
+      // Check if user already completed login mission today
+      const [todayLogin] = await sequelize.query(
+        `SELECT um.id FROM user_missions um
+        JOIN missions m ON um.mission_id = m.id
+        WHERE um.user_id = ? AND m.requirement_type = 'login'
+        AND um.is_completed = TRUE
+        AND DATE(um.completed_at) = CURDATE()`,
+        { replacements: [user.id] }
+      );
+      
+      // Only track if not completed today (mission will auto-complete when progress = 1)
+      if (!todayLogin || (todayLogin as any[]).length === 0) {
+        await updateMissionProgress(user.id, 'login', 1);
+      }
+    } catch (error) {
+      // Silent fail - don't break login if gamification fails
+      console.error('Error tracking login mission:', error);
+    }
   }
 
   // Generate token

@@ -70,6 +70,15 @@ export const createForumThread = async (input: CreateForumInput, userId: number)
 
   // Update mission progress
   await updateMissionProgress(userId, 'forum_post', 1);
+  
+  // Check badges (Discussion Hero - 10 posts, Discussion Master mission)
+  try {
+    const { checkAndAwardBadges } = await import('./gamificationService');
+    await checkAndAwardBadges(userId);
+  } catch (error) {
+    // Silent fail
+    console.error('Error checking badges on forum post:', error);
+  }
 
   return forum;
 };
@@ -220,6 +229,15 @@ export const createReply = async (forumId: number, userId: number, input: Create
 
   // Update mission progress
   await updateMissionProgress(userId, 'forum_reply', 1);
+  
+  // Check badges (Helping Hand - 20 replies)
+  try {
+    const { checkAndAwardBadges } = await import('./gamificationService');
+    await checkAndAwardBadges(userId);
+  } catch (error) {
+    // Silent fail
+    console.error('Error checking badges on forum reply:', error);
+  }
 
   return reply;
 };
@@ -258,6 +276,16 @@ export const toggleLikeForum = async (forumId: number, userId: number) => {
     await forum.update({
       likes_count: forum.likes_count + 1
     });
+    
+    // Check badges for forum post owner (Social Butterfly - receive 50 likes)
+    try {
+      const { checkAndAwardBadges } = await import('./gamificationService');
+      await checkAndAwardBadges(forum.user_id);
+    } catch (error) {
+      // Silent fail
+      console.error('Error checking badges on forum like:', error);
+    }
+    
     return { liked: true, likes_count: forum.likes_count + 1 };
   }
 };

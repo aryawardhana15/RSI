@@ -363,9 +363,12 @@ export const submitQuiz = async (
   // Update mission progress
   await updateMissionProgress(userId, 'submit_assignment', 1);
 
-  // If perfect score, update perfect_quiz mission
+  // If perfect score, update perfect_quiz mission and check badges
   if (score === assignment.max_score) {
     await updateMissionProgress(userId, 'perfect_quiz', 1);
+    // Check badges (Quiz Master badge)
+    const { checkAndAwardBadges } = await import('./gamificationService');
+    await checkAndAwardBadges(userId);
   }
 
   return {
@@ -441,9 +444,17 @@ export const gradeSubmission = async (
     const xpReward = score === assignment.max_score ? 50 : 20;
     await addXP(submission.user_id, xpReward, score === assignment.max_score ? 'perfect_score' : 'graded_assignment');
     
-    // Update mission progress (tugas submission is already tracked in submitAssignment)
+    // Check badges (Top Scorer for average 90+ on 5 assignments)
+    // Note: perfect_quiz mission is only for kuis, not tugas
+    const { checkAndAwardBadges } = await import('./gamificationService');
+    await checkAndAwardBadges(submission.user_id);
+  } else if (assignment.type === 'kuis') {
+    // For kuis, check perfect_quiz mission if perfect score
     if (score === assignment.max_score) {
       await updateMissionProgress(submission.user_id, 'perfect_quiz', 1);
+      // Check badges (Quiz Master badge)
+      const { checkAndAwardBadges } = await import('./gamificationService');
+      await checkAndAwardBadges(submission.user_id);
     }
   }
 

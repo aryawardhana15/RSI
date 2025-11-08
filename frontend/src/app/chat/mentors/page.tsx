@@ -92,18 +92,10 @@ export default function MentorsPage() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           {/* Header dengan dekorasi */}
           <div className="px-4 py-8 sm:px-0 relative">
-            {/* Dekorasi background */}
-            <div className="absolute top-0 left-0 right-0 h-full opacity-10 pointer-events-none">
-              <div className="absolute top-4 left-10 text-6xl animate-bounce" style={{animationDelay: '0s', animationDuration: '3s'}}>🎓</div>
-              <div className="absolute top-8 right-20 text-5xl animate-bounce" style={{animationDelay: '0.5s', animationDuration: '3s'}}>📚</div>
-              <div className="absolute top-16 left-1/3 text-4xl animate-bounce" style={{animationDelay: '1s', animationDuration: '3s'}}>✨</div>
-              <div className="absolute top-12 right-1/4 text-5xl animate-bounce" style={{animationDelay: '1.5s', animationDuration: '3s'}}>💡</div>
-            </div>
 
             {/* Content */}
             <div className="relative z-10 text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-yellow-100 border-2 border-yellow-300 rounded-full px-6 py-2 mb-4">
-                <span className="text-2xl animate-pulse">🌟</span>
                 <span className="text-sm font-semibold text-yellow-800">Temukan Mentor Terbaik!</span>
               </div>
               

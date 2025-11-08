@@ -486,29 +486,122 @@ export const getXPHistory = async (userId: number, page: number = 1, limit: numb
 
 export const checkAndAwardBadges = async (userId: number) => {
   // This function checks various conditions and awards badges automatically
+  try {
+    // Badge 1: First Steps - Complete first material
+    const [firstMaterialResult] = await sequelize.query(
+      'SELECT COUNT(*) as total FROM material_progress WHERE user_id = ? AND is_completed = TRUE',
+      { replacements: [userId] }
+    );
+    const completedMaterials = (firstMaterialResult as any)[0].total;
+    if (completedMaterials >= 1) {
+      await awardBadge(userId, 1);
+    }
 
-  // Example: First Steps badge (complete first material)
-  const [firstMaterialResult] = await sequelize.query(
-    'SELECT COUNT(*) as total FROM material_progress WHERE user_id = ? AND is_completed = TRUE',
-    { replacements: [userId] }
-  );
-  const completedMaterials = (firstMaterialResult as any)[0].total;
+    // Badge 2: Quiz Master - Score 100 on any quiz
+    const [perfectQuizResult] = await sequelize.query(
+      `SELECT COUNT(*) as total FROM submissions s
+      JOIN assignments a ON s.assignment_id = a.id
+      WHERE s.user_id = ? AND a.type = 'kuis' AND s.score = a.max_score`,
+      { replacements: [userId] }
+    );
+    const perfectQuizzes = (perfectQuizResult as any)[0].total;
+    if (perfectQuizzes >= 1) {
+      await awardBadge(userId, 2);
+    }
 
-  if (completedMaterials >= 1) {
-    await awardBadge(userId, 1); // Badge ID 1: First Steps
+    // Badge 3: Discussion Hero - Create 10 forum posts
+    const [forumPostsResult] = await sequelize.query(
+      'SELECT COUNT(*) as total FROM forums WHERE user_id = ?',
+      { replacements: [userId] }
+    );
+    const forumPosts = (forumPostsResult as any)[0].total;
+    if (forumPosts >= 10) {
+      await awardBadge(userId, 3);
+    }
+
+    // Badge 4: Course Completer - Complete 1 full course
+    const [coursesResult] = await sequelize.query(
+      'SELECT COUNT(*) as total FROM enrollments WHERE user_id = ? AND completed_at IS NOT NULL',
+      { replacements: [userId] }
+    );
+    const completedCourses = (coursesResult as any)[0].total;
+    if (completedCourses >= 1) {
+      await awardBadge(userId, 4);
+    }
+
+    // Badge 5: Speed Learner - Complete 5 materials in one day
+    const [speedLearnerResult] = await sequelize.query(
+      `SELECT COUNT(*) as total FROM material_progress 
+      WHERE user_id = ? AND is_completed = TRUE 
+      AND DATE(completed_at) = CURDATE()`,
+      { replacements: [userId] }
+    );
+    const todayMaterials = (speedLearnerResult as any)[0].total;
+    if (todayMaterials >= 5) {
+      await awardBadge(userId, 5);
+    }
+
+    // Badge 6: Week Warrior - Login 7 days in a row (check login streak)
+    // Note: This requires tracking login dates, simplified here
+    const [loginStreakResult] = await sequelize.query(
+      `SELECT COUNT(DISTINCT DATE(created_at)) as streak 
+      FROM user_missions um
+      JOIN missions m ON um.mission_id = m.id
+      WHERE um.user_id = ? AND m.requirement_type = 'login'
+      AND um.completed_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+      ORDER BY um.completed_at DESC`,
+      { replacements: [userId] }
+    );
+    const loginDays = (loginStreakResult as any)[0]?.streak || 0;
+    if (loginDays >= 7) {
+      await awardBadge(userId, 6);
+    }
+
+    // Badge 7: Social Butterfly - Receive 50 likes on forum posts
+    const [likesResult] = await sequelize.query(
+      `SELECT SUM(likes_count) as total FROM forums WHERE user_id = ?`,
+      { replacements: [userId] }
+    );
+    const totalLikes = (likesResult as any)[0].total || 0;
+    if (totalLikes >= 50) {
+      await awardBadge(userId, 7);
+    }
+
+    // Badge 8: Helping Hand - Reply 20 times in forums
+    const [repliesResult] = await sequelize.query(
+      'SELECT COUNT(*) as total FROM forum_replies WHERE user_id = ?',
+      { replacements: [userId] }
+    );
+    const forumReplies = (repliesResult as any)[0].total;
+    if (forumReplies >= 20) {
+      await awardBadge(userId, 8);
+    }
+
+    // Badge 9: Top Scorer - Average 90+ score on 5 assignments
+    const [topScorerResult] = await sequelize.query(
+      `SELECT AVG(score) as avg_score, COUNT(*) as count 
+      FROM submissions s
+      JOIN assignments a ON s.assignment_id = a.id
+      WHERE s.user_id = ? AND a.type = 'tugas' AND s.score IS NOT NULL`,
+      { replacements: [userId] }
+    );
+    const avgScore = (topScorerResult as any)[0]?.avg_score || 0;
+    const assignmentCount = (topScorerResult as any)[0]?.count || 0;
+    if (assignmentCount >= 5 && avgScore >= 90) {
+      await awardBadge(userId, 9);
+    }
+
+    // Badge 10: Dedicated Learner - Enroll in 5 courses
+    const [enrollmentsResult] = await sequelize.query(
+      'SELECT COUNT(*) as total FROM enrollments WHERE user_id = ?',
+      { replacements: [userId] }
+    );
+    const enrollments = (enrollmentsResult as any)[0].total;
+    if (enrollments >= 5) {
+      await awardBadge(userId, 10);
+    }
+  } catch (error) {
+    console.error('Error checking and awarding badges:', error);
   }
-
-  // Example: Course Completer badge (complete 1 course)
-  const [coursesResult] = await sequelize.query(
-    'SELECT COUNT(*) as total FROM enrollments WHERE user_id = ? AND completed_at IS NOT NULL',
-    { replacements: [userId] }
-  );
-  const completedCourses = (coursesResult as any)[0].total;
-
-  if (completedCourses >= 1) {
-    await awardBadge(userId, 4); // Badge ID 4: Course Completer
-  }
-
-  // Add more badge conditions here...
 };
 

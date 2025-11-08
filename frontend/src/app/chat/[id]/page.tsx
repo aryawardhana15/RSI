@@ -246,9 +246,6 @@ export default function ChatRoomPage() {
                 <div className="w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full flex items-center justify-center shadow-lg">
                   <span className="text-6xl">💬</span>
                 </div>
-                <div className="absolute -top-2 -right-2 w-12 h-12 bg-yellow-300 rounded-full flex items-center justify-center shadow-md animate-bounce">
-                  <span className="text-2xl">✨</span>
-                </div>
               </div>
               
               <div className="bg-white rounded-3xl p-8 shadow-xl border-4 border-purple-100 max-w-md text-center">
@@ -282,9 +279,9 @@ export default function ChatRoomPage() {
         <div className="bg-white border-t-4 border-purple-200 px-4 py-4 shadow-lg">
           {/* Motivasi singkat */}
           <div className="mb-3 flex items-center justify-center gap-2 text-xs text-gray-600">
-            <span className="animate-pulse">🌟</span>
+            <span>🌟</span>
             <span>Komunikasi yang baik adalah kunci pembelajaran yang efektif!</span>
-            <span className="animate-pulse">🌟</span>
+            <span>🌟</span>
           </div>
           
           <div className="flex items-end space-x-3">

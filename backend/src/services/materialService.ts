@@ -230,8 +230,8 @@ const updateEnrollmentProgress = async (userId: number, courseId: number) => {
 
       // Update mission progress for course completion
       await updateMissionProgress(userId, 'complete_course', 1);
-
-      // Check badges
+      
+      // Check and award badges
       const { checkAndAwardBadges } = await import('./gamificationService');
       await checkAndAwardBadges(userId);
     }

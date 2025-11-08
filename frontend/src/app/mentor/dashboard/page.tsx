@@ -90,27 +90,6 @@ export default function MentorDashboardPage() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-300 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl opacity-20"></div>
               
-              {/* Floating education icons */}
-              <div className="absolute top-8 right-12 animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
-                  <span className="text-4xl">📚</span>
-                </div>
-              </div>
-              <div className="absolute top-24 right-32 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '2.5s' }}>
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
-                  <span className="text-3xl">✏️</span>
-                </div>
-              </div>
-              <div className="absolute bottom-20 right-20 animate-bounce" style={{ animationDelay: '1s', animationDuration: '3.5s' }}>
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
-                  <span className="text-3xl">🎓</span>
-                </div>
-              </div>
-              <div className="absolute top-1/2 right-8 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2.8s' }}>
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-2 shadow-lg">
-                  <span className="text-2xl">💡</span>
-                </div>
-              </div>
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -213,9 +192,6 @@ export default function MentorDashboardPage() {
                 <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full filter blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-yellow-300 rounded-full filter blur-2xl opacity-30"></div>
                 
-                {/* Floating emoji decorations */}
-                <div className="absolute top-4 right-4 text-4xl animate-bounce" style={{ animationDuration: '2s' }}>✨</div>
-                <div className="absolute bottom-4 right-8 text-3xl animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}>🎨</div>
                 
                 <div className="relative z-10">
                   <div className="flex items-start justify-between mb-4">
@@ -314,13 +290,9 @@ export default function MentorDashboardPage() {
               <div className="absolute inset-0 bg-black/5"></div>
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full filter blur-3xl opacity-20"></div>
               
-              {/* Fun decorative emojis */}
-              <div className="absolute top-4 left-4 text-6xl opacity-20 animate-pulse">🎓</div>
-              <div className="absolute bottom-4 right-4 text-6xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}>💡</div>
-              
               <div className="relative z-10 flex items-center gap-6">
                 <div className="hidden md:block">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 text-7xl animate-bounce" style={{ animationDuration: '3s' }}>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 text-7xl">
                     ✨
                   </div>
                 </div>

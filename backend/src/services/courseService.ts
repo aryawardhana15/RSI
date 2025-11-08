@@ -245,6 +245,15 @@ export const enrollCourse = async (userId: number, courseId: number) => {
     progress: 0
   });
 
+  // Check and award badges (e.g., Dedicated Learner - enroll in 5 courses)
+  try {
+    const { checkAndAwardBadges } = await import('./gamificationService');
+    await checkAndAwardBadges(userId);
+  } catch (error) {
+    // Silent fail - don't break enrollment if badge check fails
+    console.error('Error checking badges on enrollment:', error);
+  }
+
   return enrollment;
 };
 

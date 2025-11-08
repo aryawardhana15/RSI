@@ -104,13 +104,17 @@ export default function CoursesPage() {
               
               <div className="relative z-10">
                 <div className="flex items-center gap-3">
-                  <div className="text-5xl animate-bounce">🔍</div>
+                  <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
                   <div>
                     <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">
                       Jelajahi Kursus
                     </h1>
                     <p className="text-xl text-white/90 font-medium">
-                      Temukan kursus yang sesuai dengan minat dan tujuan belajarmu! 🎯
+                      Temukan kursus yang sesuai dengan minat dan tujuan belajarmu
                     </p>
                   </div>
                 </div>
@@ -134,10 +138,13 @@ export default function CoursesPage() {
           {!isLoading && courses.length === 0 && (
             <div className="text-center py-16">
               <div className="relative inline-block mb-6">
-                <div className="text-8xl animate-bounce">🔍</div>
-                <div className="absolute -top-2 -right-2 text-4xl animate-pulse">✨</div>
+                <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
+                  <svg className="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
               </div>
-              <h3 className="text-2xl font-black text-gray-800 mb-2">Tidak ada kursus ditemukan 😊</h3>
+              <h3 className="text-2xl font-black text-gray-800 mb-2">Tidak ada kursus ditemukan</h3>
               <p className="text-lg text-gray-600 mb-8">Coba ubah filter pencarianmu atau cek lagi nanti!</p>
             </div>
           )}
