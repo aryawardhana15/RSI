@@ -1009,6 +1009,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - GitHub: [@aryawardhana15](https://github.com/aryawardhana15)
 - Email: wardhanahafiz567@gmail.com
+- instagram : @Malhafizaryaw
 
 ---
 
