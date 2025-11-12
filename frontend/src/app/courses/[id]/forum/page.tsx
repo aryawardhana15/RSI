@@ -54,7 +54,13 @@ export default function CourseForumPage() {
 
       const response = await api.get(`/forums/course/${courseId}?${params.toString()}`);
       if (response.data.success) {
-        setForums(response.data.data);
+        // Sanitize forum data to remove leading/trailing '0' characters
+        const sanitizedForums = response.data.data.map((forum: Forum) => ({
+          ...forum,
+          title: forum.title?.replace(/^0+|0+$/g, '') || '',
+          content: forum.content?.replace(/^0+|0+$/g, '') || ''
+        }));
+        setForums(sanitizedForums);
         setPagination(response.data.pagination);
       }
     } catch (error: any) {
@@ -180,14 +186,14 @@ export default function CourseForumPage() {
             {forums.length > 0 && (
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <ul className="divide-y divide-gray-200">
-                  {forums.map((forum) => (
+                  {forums.map((forum: Forum) => (
                     <li key={forum.id} className="hover:bg-gray-50">
                       <div className="px-6 py-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center">
+                            <div className="flex items-center gap-2">
                               {forum.is_pinned && (
-                                <svg className="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-5 h-5 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                   <path d="M5.5 16a3.5 3.5 0 01-1.41-6.705 3.5 3.5 0 016.705-1.41 3.5 3.5 0 016.705 1.41 3.5 3.5 0 01-1.41 6.705L5.5 16z" />
                                 </svg>
                               )}
@@ -195,7 +201,7 @@ export default function CourseForumPage() {
                                 {forum.title}
                               </h3>
                               {forum.is_locked && (
-                                <svg className="w-5 h-5 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-5 h-5 text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                                 </svg>
                               )}

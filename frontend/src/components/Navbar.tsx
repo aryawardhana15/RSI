@@ -60,12 +60,12 @@ export default function Navbar() {
               className="flex items-center gap-2 group"
             >
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                  <span className="text-xl">🎓</span>
+                <div className="w-12 h-10 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <img src="logo_edutopia.png" alt="Edutopia Logo" className="w-12 h-10" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300"></div>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-[#222C7B] bg-clip-text text-transparent">
                 Edutopia
               </span>
             </button>
@@ -76,19 +76,19 @@ export default function Navbar() {
                 href="/dashboard"
                 className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   isActive('/dashboard')
-                    ? 'text-indigo-600 bg-indigo-50'
-                    : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                    ? 'text-[#1758E6] bg-[#DCE6FB]'
+                    : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                 }`}
               >
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
-                  Dashboard
+                  Beranda
                 </span>
-                {isActive('/dashboard') && (
+                {/* {isActive('/dashboard') && (
                   <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                )}
+                )} */}
               </a>
               
               {user?.role === 'pelajar' && (
@@ -97,8 +97,8 @@ export default function Navbar() {
                     href="/courses"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/courses')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-[#DCE6FB]'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
@@ -107,16 +107,16 @@ export default function Navbar() {
                       </svg>
                       Kursus
                     </span>
-                    {isActive('/courses') && (
+                    {/* {isActive('/courses') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                   <a
                     href="/my-courses"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/my-courses')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-[#DCE6FB]'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
@@ -125,27 +125,27 @@ export default function Navbar() {
                       </svg>
                       Kursus Saya
                     </span>
-                    {isActive('/my-courses') && (
+                    {/* {isActive('/my-courses') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                   <a
                     href="/gamification/stats"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/gamification')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-[#DCE6FB]'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                       </svg>
-                      Gamifikasi
+                      Pencapaian
                     </span>
-                    {isActive('/gamification') && (
+                    {/* {isActive('/gamification') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                 </>
               )}
@@ -156,8 +156,8 @@ export default function Navbar() {
                     href="/mentor/courses"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/mentor/courses')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-[#DCE6FB]'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
@@ -166,27 +166,27 @@ export default function Navbar() {
                       </svg>
                       Kursus Saya
                     </span>
-                    {isActive('/mentor/courses') && (
+                    {/* {isActive('/mentor/courses') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                   <a
                     href="/mentor/students"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/mentor/students')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-[#DCE6FB]'
+                        : 'text-gray-600 hover:text-[#1758E6]indigo-600 hover:bg-gray-50'
                     }`}
                   >
-                    <span className="flex items-center gap-2">
+                    {/* <span className="flex items-center gap-2">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                       </svg>
                       Pelajar
-                    </span>
-                    {isActive('/mentor/students') && (
+                    </span> */}
+                    {/* {isActive('/mentor/students') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                 </>
               )}
@@ -197,8 +197,8 @@ export default function Navbar() {
                     href="/admin/users"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/admin/users')
-                        ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        ? 'text-[#1758E6] bg-indigo-50'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
@@ -207,16 +207,16 @@ export default function Navbar() {
                       </svg>
                       Users
                     </span>
-                    {isActive('/admin/users') && (
+                    {/* {isActive('/admin/users') && (
                       <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full"></span>
-                    )}
+                    )} */}
                   </a>
                   <a
                     href="/admin/courses"
                     className={`relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive('/admin/courses')
                         ? 'text-indigo-600 bg-indigo-50'
-                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                        : 'text-gray-600 hover:text-[#1758E6] hover:bg-gray-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
