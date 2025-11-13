@@ -140,7 +140,7 @@ export const login = async (input: LoginInput): Promise<RegisterResponse> => {
 
 export const getCurrentUser = async (userId: number) => {
   const user = await User.findByPk(userId, {
-    attributes: ['id', 'name', 'email', 'role', 'bio', 'photo_url', 'is_verified', 'is_suspended']
+    attributes: ['id', 'name', 'email', 'role', 'bio', 'photo_url', 'expertise', 'experience', 'is_verified', 'is_suspended']
   });
 
   if (!user) {
@@ -158,6 +158,59 @@ export const getCurrentUser = async (userId: number) => {
     role: user.role,
     bio: user.bio,
     photo_url: user.photo_url,
+    expertise: user.expertise,
+    experience: user.experience,
+    is_verified: user.is_verified
+  };
+};
+
+interface UpdateProfileInput {
+  name?: string;
+  email?: string;
+  bio?: string;
+  photo_url?: string;
+  expertise?: string;
+  experience?: string;
+}
+
+export const updateProfile = async (userId: number, input: UpdateProfileInput) => {
+  const user = await User.findByPk(userId);
+
+  if (!user) {
+    throw new Error('User tidak ditemukan');
+  }
+
+  if (user.is_suspended) {
+    throw new Error('Akun Anda telah dinonaktifkan');
+  }
+
+  // Check if email is being changed and if it's already taken
+  if (input.email && input.email !== user.email) {
+    const existingUser = await User.findOne({ where: { email: input.email } });
+    if (existingUser) {
+      throw new Error('Email sudah digunakan oleh user lain');
+    }
+  }
+
+  // Update only provided fields
+  if (input.name !== undefined) user.name = input.name;
+  if (input.email !== undefined) user.email = input.email;
+  if (input.bio !== undefined) user.bio = input.bio;
+  if (input.photo_url !== undefined) user.photo_url = input.photo_url;
+  if (input.expertise !== undefined) user.expertise = input.expertise;
+  if (input.experience !== undefined) user.experience = input.experience;
+
+  await user.save();
+
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    bio: user.bio,
+    photo_url: user.photo_url,
+    expertise: user.expertise,
+    experience: user.experience,
     is_verified: user.is_verified
   };
 };

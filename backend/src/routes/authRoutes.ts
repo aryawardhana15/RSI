@@ -30,6 +30,19 @@ router.post(
 
 // Protected routes
 router.get('/me', authenticate, authController.getCurrentUser);
+router.put(
+  '/profile',
+  authenticate,
+  [
+    body('name').optional().trim().notEmpty().withMessage('Nama tidak boleh kosong'),
+    body('email').optional().isEmail().withMessage('Email tidak valid'),
+    body('bio').optional().trim(),
+    body('photo_url').optional().isURL().withMessage('Photo URL tidak valid'),
+    body('expertise').optional().trim(),
+    body('experience').optional().trim()
+  ],
+  authController.updateProfile
+);
 router.post('/logout', authenticate, authController.logout);
 
 export default router;

@@ -15,6 +15,10 @@ export interface User {
   email: string;
   role: string;
   is_verified: boolean;
+  bio?: string;
+  photo_url?: string;
+  expertise?: string;
+  experience?: string;
 }
 
 export interface AuthResponse {

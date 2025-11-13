@@ -281,13 +281,26 @@ export default function Navbar() {
 
             {/* User Menu */}
             <div className="flex items-center space-x-3 pl-3 border-l border-gray-200">
-              <div className="hidden sm:block text-right">
-                <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500 capitalize">{user?.role}</p>
-              </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md">
-                {user?.name?.charAt(0).toUpperCase() || 'U'}
-              </div>
+              <button
+                onClick={() => router.push('/profile/edit')}
+                className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer group"
+              >
+                <div className="hidden sm:block text-right">
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-[#1758E6] transition-colors">{user?.name}</p>
+                  <p className="text-xs text-gray-500 capitalize">{user?.role}</p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-shadow">
+                  {user?.photo_url ? (
+                    <img 
+                      src={user.photo_url} 
+                      alt={user.name} 
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  ) : (
+                    user?.name?.charAt(0).toUpperCase() || 'U'
+                  )}
+                </div>
+              </button>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-pink-500 rounded-lg hover:from-red-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
