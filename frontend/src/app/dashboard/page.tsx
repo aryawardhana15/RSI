@@ -83,7 +83,11 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
         <Navbar />
 
-        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto py-8 px-8 sm:px-6 lg:px-8">
+          {/* Main Content - Varied Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+            {/* Left Column - Wide (8 out of 12 columns) */}
+            <div className="lg:col-span-8 space-y-6">
           {/* Welcome Header - Clean Design */}
           <div className="mb-8">
             <div className="relative bg-[#1758E6] rounded-xl p-12 border border-gray-100">
@@ -98,31 +102,11 @@ export default function DashboardPage() {
                     </p>
                   </div>
                 </div>
-                {gamificationStats && (
-                  <div className="hidden md:flex items-center gap-6">
-                    <div className="text-right bg-indigo-50 px-4 py-2 rounded-lg border border-indigo-100">
-                      <p className="text-xs text-gray-500 flex items-center gap-1">
-                        Level
-                      </p>
-                      <p className="text-2xl font-bold text-indigo-600">{gamificationStats.current_level}</p>
-                    </div>
-                    <div className="w-px h-12 bg-gray-200"></div>
-                    <div className="text-right bg-amber-50 px-4 py-2 rounded-lg border border-amber-100">
-                      <p className="text-xs text-gray-500 flex items-center gap-1">
-                        <span>⚡</span> Total XP
-                      </p>
-                      <p className="text-2xl font-bold text-amber-600">{gamificationStats.total_xp.toLocaleString()}</p>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
 
-          {/* Main Content - Varied Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-            {/* Left Column - Wide (8 out of 12 columns) */}
-            <div className="lg:col-span-8 space-y-6">
+          
               {/* Kursus Saya section - visually distinct */}
               {courses && courses.length > 0 && (
                 <div className="bg-white rounded-2xl border border-gray-300 mb-8 p-6">
@@ -290,7 +274,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Progress Overview - Enhanced Design */}
-              <div className="bg-white rounded-xl p-6 border border-gray">
+              <div className="bg-white rounded-xl p-6 border border-gray-300">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
                     <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
