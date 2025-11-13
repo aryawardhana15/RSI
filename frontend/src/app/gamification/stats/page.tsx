@@ -87,7 +87,7 @@ export default function GamificationStatsPage() {
                         </svg>
                       </div>
                       <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-                        Statistik Gamifikasi
+                        Statistik Pencapaian
                       </h1>
                     </div>
                     <p className="text-xl text-white/90 font-medium">
@@ -123,7 +123,7 @@ export default function GamificationStatsPage() {
             <>
               {/* XP and Level Card - Fun Design */}
               <div className="px-4 sm:px-0 mb-6">
-                <div className="relative bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl shadow-2xl p-8 border-4 border-white/50 overflow-hidden">
+                <div className="relative bg-[#1758E6] rounded-3xl shadow-2xl p-8 border-4 border-white/50 overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
                   
                   <div className="relative z-10">

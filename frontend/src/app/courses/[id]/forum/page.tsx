@@ -54,7 +54,13 @@ export default function CourseForumPage() {
 
       const response = await api.get(`/forums/course/${courseId}?${params.toString()}`);
       if (response.data.success) {
-        setForums(response.data.data);
+        // Sanitize forum data to remove leading/trailing '0' characters
+        const sanitizedForums = response.data.data.map((forum: Forum) => ({
+          ...forum,
+          title: forum.title?.replace(/^0+|0+$/g, '') || '',
+          content: forum.content?.replace(/^0+|0+$/g, '') || ''
+        }));
+        setForums(sanitizedForums);
         setPagination(response.data.pagination);
       }
     } catch (error: any) {
@@ -338,4 +344,3 @@ export default function CourseForumPage() {
     </ProtectedRoute>
   );
 }
-

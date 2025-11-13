@@ -85,7 +85,7 @@ export default function MentorDashboardPage() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           {/* Hero Header Section - Education Theme */}
           <div className="px-4 sm:px-0 mb-8">
-            <div className="relative bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-3xl shadow-2xl overflow-hidden p-8 md:p-12">
+            <div className="relative bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-3xl overflow-hidden p-8 md:p-12">
               {/* Decorative elements - Education themed */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-300 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl opacity-20"></div>

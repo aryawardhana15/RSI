@@ -24,9 +24,9 @@ router.post(
     body('title').trim().notEmpty().withMessage('Judul materi wajib diisi'),
     body('description').optional().trim(),
     body('content').optional().trim(),
-    body('video_url').optional().isURL().withMessage('Video URL tidak valid'),
-    body('file_url').optional().isURL().withMessage('File URL tidak valid'),
-    body('order_index').isInt({ min: 0 }).withMessage('Order index harus angka positif')
+    body('video_url').optional().trim(),
+    body('file_url').optional().trim(),
+    body('order_index').optional().isInt({ min: 0 }).withMessage('Order index harus angka positif')
   ],
   materialController.createMaterial
 );
@@ -39,8 +39,8 @@ router.put(
     body('title').optional().trim().notEmpty(),
     body('description').optional().trim(),
     body('content').optional().trim(),
-    body('video_url').optional().isURL(),
-    body('file_url').optional().isURL(),
+    body('video_url').optional().trim(),
+    body('file_url').optional().trim(),
     body('order_index').optional().isInt({ min: 0 })
   ],
   materialController.updateMaterial

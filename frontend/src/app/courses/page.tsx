@@ -97,7 +97,7 @@ export default function CoursesPage() {
 
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           {/* Header - Fun Design */}
-          <div className="px-4 py-6 sm:px-0 mb-6">
+          {/* <div className="px-4 py-6 sm:px-0 mb-6">
             <div className="relative overflow-hidden bg-gradient-to-r from-indigo-500 via-blue-500 to-purple-500 rounded-3xl p-8 shadow-2xl">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
@@ -120,7 +120,7 @@ export default function CoursesPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Filters */}
           <div className="px-4 sm:px-0">
