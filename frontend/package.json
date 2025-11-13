@@ -7,7 +7,8 @@
     "dev:memory": "node --max-old-space-size=4096 ./node_modules/.bin/next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next && echo Cleaned .next folder"
   },
   "dependencies": {
     "axios": "^1.6.2",
