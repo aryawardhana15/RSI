@@ -60,33 +60,33 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform">
-              <span className="text-4xl">🎓</span>
+          <div className="flex justify-center gap-2">
+            <div className="w-12 h-10 rounded-2xl flex items-center justify-center transform transition-transform">
+              <img src="/logo_edutopia.png" alt="Edutopia Logo" className="w-12 h-10" />
             </div>
-          </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">
-            Selamat Datang!
+            EduTopia
           </h2>
+          </div>
           <p className="text-lg text-gray-600">
-            Login ke Edutopia
+            Selamat datang kembali!
           </p>
           <p className="mt-2 text-sm text-gray-500">
             Belum punya akun?{' '}
-            <a href="/register" className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+            <a href="/register" className="font-semibold text-[#1758E6] hover:text-indigo-700 transition-colors">
               Daftar di sini
             </a>
           </p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="bg-white rounded-2xl p-8 border border-gray-300">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                   Email
@@ -117,7 +117,7 @@ export default function LoginPage() {
             <div>
               <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                   Password
@@ -165,7 +165,7 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-[#1758E6] focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                   Ingat saya
@@ -173,7 +173,7 @@ export default function LoginPage() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-700 transition-colors">
+                <a href="#" className="font-medium text-[#1758E6] hover:text-indigo-700 transition-colors">
                   Lupa password?
                 </a>
               </div>
@@ -184,7 +184,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl text-base font-semibold text-white bg-[#1758E6] hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 {isLoading ? (
                   <>
@@ -195,10 +195,7 @@ export default function LoginPage() {
                     Memproses...
                   </>
                 ) : (
-                  <>
-                    <span>🚀</span>
-                    Login
-                  </>
+                  <>Login</>
                 )}
               </button>
             </div>
@@ -209,9 +206,9 @@ export default function LoginPage() {
         <div className="text-center">
           <p className="text-xs text-gray-500">
             Dengan login, Anda menyetujui{' '}
-            <a href="#" className="text-indigo-600 hover:text-indigo-700">Syarat & Ketentuan</a>
+            <a href="#" className="text-[#1758E6] hover:text-indigo-700">Syarat & Ketentuan</a>
             {' '}dan{' '}
-            <a href="#" className="text-indigo-600 hover:text-indigo-700">Kebijakan Privasi</a>
+            <a href="#" className="text-[#1758E6] hover:text-indigo-700">Kebijakan Privasi</a>
           </p>
         </div>
       </div>

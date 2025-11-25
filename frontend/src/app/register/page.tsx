@@ -64,33 +64,32 @@ export default function RegisterPage() {
       <div className="max-w-lg w-full space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform">
-              <span className="text-4xl">✨</span>
+          <div className="flex justify-center mb-4 gap-2">
+            <div className="w-12 h-10 flex items-center justify-center transform transition-transform">
+              <img src="/logo_edutopia.png" alt="Edutopia Logo" className="w-12 h-10" />
             </div>
-          </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">
-            Daftar Sekarang!
+            EduTopia
           </h2>
+          </div>
           <p className="text-lg text-gray-600">
-            Bergabung dengan Edutopia
+            Mari Belajar Bersama EduTopia!
           </p>
           <p className="mt-2 text-sm text-gray-500">
             Sudah punya akun?{' '}
-            <a href="/login" className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+            <a href="/login" className="font-semibold text-[#1758E6] hover:text-indigo-700 transition-colors">
               Login di sini
             </a>
           </p>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="bg-white rounded-2xl p-8 border border-gray-300">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* Role Selection */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 <span className="flex items-center gap-2">
-                  <span>👤</span>
                   Pilih Tipe Akun
                 </span>
               </label>
@@ -100,12 +99,11 @@ export default function RegisterPage() {
                   onClick={() => setRole('pelajar')}
                   className={`py-3 px-4 rounded-xl font-semibold transition-all transform ${
                     role === 'pelajar'
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105'
+                      ? 'bg-[#1758E6] text-white scale-105'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-2xl">🎓</span>
                     <span>Pelajar</span>
                   </div>
                 </button>
@@ -114,12 +112,11 @@ export default function RegisterPage() {
                   onClick={() => setRole('mentor')}
                   className={`py-3 px-4 rounded-xl font-semibold transition-all transform ${
                     role === 'mentor'
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105'
+                      ? 'bg-[#1758E6] text-white scale-105'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   <div className="flex flex-col items-center gap-1">
-                    <span className="text-2xl">👨‍🏫</span>
                     <span>Mentor</span>
                   </div>
                 </button>
@@ -130,7 +127,7 @@ export default function RegisterPage() {
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                   Nama Lengkap
@@ -155,7 +152,7 @@ export default function RegisterPage() {
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                   Email
@@ -186,7 +183,7 @@ export default function RegisterPage() {
             <div>
               <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                   Password
@@ -235,7 +232,7 @@ export default function RegisterPage() {
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-2">
                 <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-[#1758E6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Konfirmasi Password
@@ -281,7 +278,6 @@ export default function RegisterPage() {
             {role === 'mentor' && (
               <div className="space-y-4 p-4 bg-indigo-50 rounded-xl border-2 border-indigo-100">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xl">👨‍🏫</span>
                   <h3 className="font-semibold text-indigo-900">Informasi Mentor</h3>
                 </div>
 
@@ -330,7 +326,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl text-base font-semibold text-white bg-[#1758E6] hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 {isLoading ? (
                   <>
@@ -342,7 +338,6 @@ export default function RegisterPage() {
                   </>
                 ) : (
                   <>
-                    <span>🎉</span>
                     Daftar
                   </>
                 )}
@@ -355,9 +350,9 @@ export default function RegisterPage() {
         <div className="text-center">
           <p className="text-xs text-gray-500">
             Dengan mendaftar, Anda menyetujui{' '}
-            <a href="#" className="text-indigo-600 hover:text-indigo-700">Syarat & Ketentuan</a>
+            <a href="#" className="text-[#1758E6] hover:text-indigo-700">Syarat & Ketentuan</a>
             {' '}dan{' '}
-            <a href="#" className="text-indigo-600 hover:text-indigo-700">Kebijakan Privasi</a>
+            <a href="#" className="text-[#1758E6] hover:text-indigo-700">Kebijakan Privasi</a>
           </p>
         </div>
       </div>

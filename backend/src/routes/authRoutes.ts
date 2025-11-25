@@ -34,12 +34,20 @@ router.put(
   '/profile',
   authenticate,
   [
-    body('name').optional().trim().notEmpty().withMessage('Nama tidak boleh kosong'),
-    body('email').optional().isEmail().withMessage('Email tidak valid'),
-    body('bio').optional().trim(),
-    body('photo_url').optional().isURL().withMessage('Photo URL tidak valid'),
-    body('expertise').optional().trim(),
-    body('experience').optional().trim()
+    body('name').optional({ checkFalsy: false }).trim().notEmpty().withMessage('Nama tidak boleh kosong'),
+    body('email').optional({ checkFalsy: false }).trim().isEmail().withMessage('Email tidak valid'),
+    body('bio').optional({ checkFalsy: false }).trim(),
+    body('photo_url')
+      .optional({ checkFalsy: false })
+      .trim()
+      .custom((value) => {
+        // Allow empty string or valid URLs
+        if (value === '' || value === null) return true;
+        return /^(https?:\/\/).+/.test(value);
+      })
+      .withMessage('Photo URL harus URL yang valid atau kosong'),
+    body('expertise').optional({ checkFalsy: false }).trim(),
+    body('experience').optional({ checkFalsy: false }).trim()
   ],
   authController.updateProfile
 );

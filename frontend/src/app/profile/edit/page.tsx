@@ -83,12 +83,20 @@ export default function EditProfilePage() {
         setSuccess('Profile berhasil diperbarui! 🎉');
         updateUser(response.data.data);
         setTimeout(() => {
-          setShowEditForm(false);
-          setSuccess('');
-        }, 2000);
+          router.push('/dashboard');
+        }, 1500);
       }
     } catch (error: any) {
-      setError(error.response?.data?.message || 'Gagal memperbarui profile');
+      console.error('Profile update error:', error.response?.data);
+      const errorMsg = error.response?.data?.message || 'Gagal memperbarui profile';
+      const errorDetails = error.response?.data?.errors;
+      
+      if (errorDetails && Array.isArray(errorDetails)) {
+        const detailedMsg = errorDetails.map((e: any) => e.msg).join(', ');
+        setError(`${errorMsg}: ${detailedMsg}`);
+      } else {
+        setError(errorMsg);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -109,14 +117,14 @@ export default function EditProfilePage() {
         
         <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
           {/* Profile Header - Fun Design */}
-          <div className="relative mb-8 overflow-hidden bg-[#1758E6] rounded-xl p-8 shadow-lg border border-gray-100">
+          {/* <div className="relative mb-8 overflow-hidden bg-[#1758E6] rounded-xl p-8 shadow-lg border border-gray-100">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
             <div className="absolute top-4 right-4 text-6xl opacity-20">✨</div>
             
             <div className="relative z-10">
               <div className="flex flex-col md:flex-row items-center gap-6">
-                {/* Avatar */}
+                -- Avatar
                 <div className="relative">
                   <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 p-1 shadow-xl">
                     {user?.photo_url ? (
@@ -136,7 +144,7 @@ export default function EditProfilePage() {
                   </div>
                 </div>
 
-                {/* User Info */}
+                -- User Info
                 <div className="flex-1 text-center md:text-left">
                   <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
                     {user?.name || 'User'}
@@ -145,7 +153,7 @@ export default function EditProfilePage() {
                     {user?.role === 'pelajar' ? '🎓 Pelajar' : user?.role === 'mentor' ? '👨‍🏫 Mentor' : '👑 Admin'}
                   </p>
                   
-                  {/* Level & Rank for Pelajar */}
+                  Level & Rank for Pelajar
                   {user?.role === 'pelajar' && stats && (
                     <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                       <div className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 border border-white/30">
@@ -193,7 +201,7 @@ export default function EditProfilePage() {
                   )}
                 </div>
 
-                {/* Edit Button */}
+                -- Edit Button
                 <button
                   onClick={() => setShowEditForm(!showEditForm)}
                   className="px-6 py-3 bg-white/20 backdrop-blur-sm text-white font-bold rounded-xl hover:bg-white/30 transition-all transform hover:scale-105 border border-white/30 shadow-lg"
@@ -202,10 +210,10 @@ export default function EditProfilePage() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Level Progress Bar for Pelajar */}
-          {user?.role === 'pelajar' && stats && (
+          {false && user?.role === 'pelajar' && stats && (
             <div className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm mb-8">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-bold text-[#222C7B] flex items-center gap-2">
@@ -232,7 +240,7 @@ export default function EditProfilePage() {
           )}
 
           {/* Badges Section for Pelajar */}
-          {user?.role === 'pelajar' && earnedBadges.length > 0 && (
+          {false && user?.role === 'pelajar' && earnedBadges.length > 0 && (
             <div className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm mb-8">
               <h3 className="text-xl font-bold text-[#222C7B] mb-4 flex items-center gap-2">
                 <span className="text-2xl">🏆</span> Badges yang Didapat
@@ -264,7 +272,7 @@ export default function EditProfilePage() {
           )}
 
           {/* Edit Form */}
-          {showEditForm && (
+          
             <div className="bg-white rounded-2xl border border-gray-300 shadow-sm p-8 animate-fadeIn">
               <div className="mb-6">
                 <h2 className="text-3xl font-bold text-[#222C7B] mb-2 flex items-center gap-2">
@@ -411,7 +419,7 @@ export default function EditProfilePage() {
                 </div>
               </form>
             </div>
-          )}
+          
 
           {/* Bio Display (when not editing) */}
           {!showEditForm && user?.bio && (

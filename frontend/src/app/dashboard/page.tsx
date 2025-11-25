@@ -85,12 +85,15 @@ export default function DashboardPage() {
 
         <div className="max-w-6xl mx-auto py-8 px-8 sm:px-6 lg:px-8">
           {/* Main Content - Varied Layout */}
+          
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
             {/* Left Column - Wide (8 out of 12 columns) */}
             <div className="lg:col-span-8 space-y-6">
           {/* Welcome Header - Clean Design */}
           <div className="mb-8">
-            <div className="relative bg-[#1758E6] rounded-xl p-12 border border-gray-100">
+            <div className="relative bg-[#1758E6] rounded-xl p-12 border border-white overflow-hidden">
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-emerald-300 opacity-70 rounded-full -mr-16 -mb-16 group-hover:bg-amber-200 transition-colors overflow-hidden"></div>
+              <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div>
@@ -102,6 +105,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -430,7 +434,7 @@ export default function DashboardPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                       </div>
-                      <p className="font-bold text-gray-900 text-sm mb-1">Profile</p>
+                      <p className="font-bold text-gray-900 text-sm mb-1">Profil</p>
                       <p className="text-xs text-gray-500">Edit profil</p>
                     </div>
                   </button>
@@ -441,8 +445,51 @@ export default function DashboardPage() {
 
             {/* Right Sidebar - Achievements and Stats */}
             <div className="lg:col-span-4 space-y-6">
+              {/* Profile Card */}
+              <div className="bg-white rounded-2xl border border-gray-300 p-6 overflow-hidden relative">
+                <div className="relative z-10">
+                  {/* Profile Header */}
+                  <div className="flex flex-col items-center text-center mb-6">
+                    {/* Avatar */}
+                    <div className="relative mb-4">
+                      <div className="w-24 h-24 rounded-full bg-[#1758E6] p-1">
+                        {user?.photo_url ? (
+                          <img 
+                            src={user.photo_url} 
+                            alt={user.name} 
+                            className="w-full h-full rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-2xl font-black text-[#1758E6]">
+                            {user?.name?.charAt(0).toUpperCase() || 'U'}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* User Info */}
+                    <div>
+                      <h3 className="text-lg font-black text-[#222C7B] mb-1">
+                        {user?.name || 'User'}
+                      </h3>
+                      <p className="text-xs font-semibold text-[#1758E6] capitalize mb-3">
+                        {user?.role === 'pelajar' ? 'Pelajar' : 'User'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Edit Profile Button */}
+                  <button
+                    onClick={() => router.push('/profile/edit')}
+                    className="w-full px-4 py-2.5 bg-[#1758E6] text-white rounded-lg hover:shadow-lg hover:scale-[1.02] transition-all font-semibold text-sm flex items-center justify-center gap-2"
+                  >
+                    <span>Edit Profil</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Achievement Summary - Polished Design */}
-              {gamificationStats && (
+              {false && gamificationStats && (
                 <div className="bg-gradient-to-br from-white via-purple-50/40 to-indigo-50/30 rounded-xl p-5 border border-gray-300">
                   {/* Header */}
                   <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-purple-100/50">

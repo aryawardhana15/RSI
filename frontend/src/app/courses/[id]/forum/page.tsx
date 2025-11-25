@@ -267,8 +267,8 @@ export default function CourseForumPage() {
                       </p>
                       <div className="flex flex-wrap items-center gap-4 mb-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md">
-                            {forum.author_name.charAt(0).toUpperCase()}
+                          <div className="w-8 h-8 bg-[#1758E6] rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md">
+                            {(forum.author_name?.charAt(0) ?? '').toUpperCase()}
                           </div>
                           <span className="text-sm font-medium text-gray-700">{forum.author_name}</span>
                         </div>

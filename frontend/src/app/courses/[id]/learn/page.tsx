@@ -68,7 +68,7 @@ export default function LearnCoursePage() {
     if (!currentMaterial) return;
     
     if (currentMaterial.is_completed) {
-      toast.info('Materi ini sudah ditandai selesai');
+      toast.success('Materi ini sudah ditandai selesai');
       return;
     }
 
@@ -168,7 +168,7 @@ export default function LearnCoursePage() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 sm:px-0">
             {/* Header - Fun Design */}
-            <div className="mb-6 relative overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl p-6 shadow-2xl">
+            <div className="mb-6 relative overflow-hidden bg-[#1758E6] rounded-3xl p-6">
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24"></div>
               
               <div className="relative z-10">
