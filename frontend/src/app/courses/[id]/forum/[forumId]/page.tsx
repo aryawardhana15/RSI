@@ -184,7 +184,7 @@ export default function ForumDetailPage() {
   if (!forum) return null;
 
   return (
-    <ProtectedRoute allowedRoles={['pelajar', 'mentor']}>
+    <ProtectedRoute allowedRoles={(['pelajar', 'mentor'])}>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
         <Navbar />
 
@@ -439,7 +439,6 @@ export default function ForumDetailPage() {
               <p className="text-amber-700 text-sm">Tidak bisa menambah reply baru.</p>
             </div>
           )}
-          </div>
         </div>
 
         {/* Report Modal */}

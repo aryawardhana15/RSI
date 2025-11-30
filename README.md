@@ -1004,12 +1004,45 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## 👨‍💻 Author
+**Kelompok 3**
 
 **Muhammad Alhafiz Arya Wardhana**
 
+- NIM: 245150407111038
 - GitHub: [@aryawardhana15](https://github.com/aryawardhana15)
 - Email: wardhanahafiz567@gmail.com
-- instagram : @Malhafizaryaw
+- Instagram: @Malhafizaryaw
+
+
+**Maya Audina**
+
+- NIM: 245150400111028
+- Github: [@myaudn](https://github.com/myaudn)
+- Email: mayaaudina040@gmail.com
+- Instagram: @myawdina
+
+
+**Ananda Tiara Pramitha**
+
+- NIM: 245150401111013
+- Github: [@AnandaTiara](https://github.com/AnandaTiara)
+- Email: tiarakuliah123@student.ub.ac.id
+- Instagram: @tiaradisini._
+
+
+**Muhamad Afham Ali Subekti**
+
+- NIM: 245150407111006
+- Github: [@aafhaaam](https://github.com/aafhaaam)
+- Email: muhamadafham@student.ub.ac.id
+- Instagram: @aafhaaam
+
+**Muhammad Zaki Al Hilmi**
+
+- NIM: 245150407111025
+- Github: [@ZakiiiAF](https://github.com/ZakiiiAF)
+- Email: mzakialhilmi@student.ub.ac.id
+- Instagram: @za_kiiiiiiiiii
 
 ---
 
